@@ -5,6 +5,7 @@ import { styled } from "@mui/material/styles";
 import { Box, useTheme } from "@mui/material";
 import { Icon } from "@mui/material";
 import { LocationOn } from "@mui/icons-material";
+import Marker from "../assets/map.png"
 
 const MapContainer = styled(Box)(({ theme }) => ({
     height: "100vh",
@@ -50,6 +51,7 @@ const Map = ({ markers }) => {
             el.className = "marker";
             el.style.backgroundImage = `url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"%3E%3Cpath d="M12 2C8.13 2 5 5.13 5 9c0 6 7 13 7 13s7-7 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" /%3E%3C/svg%3E')`;
             el.style.backgroundSize = "fixed";
+            el.style.backgroundColor = "teal";
             el.style.width = "30px";
             el.style.height = "30px";
 

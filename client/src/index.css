@@ -37,6 +37,23 @@ body,
   color: #333;
 }
 
-.marker {
-  color: red;
+/* Target the scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* width of the scrollbar */
 }
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* color of the scrollbar track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; /* color of the scrollbar handle */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ffe3a3; /* color of the scrollbar handle on hover */
+}
+
