@@ -48,7 +48,6 @@ const Geography = () => {
     let filtered = markers.filter(marker => {
       return marker.label.includes(searchQuery)
     })
-    console.log(filtered)
     setFilteredMarkers(filtered)
   },[searchQuery])
   

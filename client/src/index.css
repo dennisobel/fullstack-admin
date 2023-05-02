@@ -37,6 +37,11 @@ body,
   color: #333;
 }
 
+.mapboxgl-popup-content {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
 /* Target the scrollbar */
 ::-webkit-scrollbar {
   width: 8px; /* width of the scrollbar */

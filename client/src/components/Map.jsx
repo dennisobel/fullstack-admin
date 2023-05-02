@@ -6,6 +6,7 @@ import { Box, useTheme } from "@mui/material";
 import { Icon } from "@mui/material";
 import { LocationOn } from "@mui/icons-material";
 import Marker from "../assets/map.png"
+import ReactDOMServer from 'react-dom/server';
 
 const MapContainer = styled(Box)(({ theme }) => ({
     height: "100vh",
@@ -55,10 +56,24 @@ const Map = ({ markers }) => {
             el.style.width = "30px";
             el.style.height = "30px";
 
+            const img = document.createElement('img');
+            img.src = 'https://example.com/my-image.jpg';
+
+            const link = document.createElement('a');
+            link.href = 'https://example.com/my-link';
+            link.textContent = 'My link';
+
+            const content = document.createElement('div');
+            content.classList.add('mapboxgl-popup-content');
+            content.appendChild(img);
+            content.appendChild(link);
+
             const markerPopup = new mapboxgl.Popup({
-                offset: 50,
+                offset: [0, -10],
                 className: "custom-popup",
-            }).setText(marker.label);
+            }).setDOMContent(
+                content
+            );
 
             new mapboxgl.Marker(el)
                 .setLngLat([marker.lng, marker.lat])
