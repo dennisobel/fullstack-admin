@@ -11,7 +11,7 @@ const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const userId = useSelector((state) => state.global.userId);
   const {data} = useGetUserQuery(userId);
-  console.log("🚀 ~ file: index.jsx:14 ~ Layout ~ data:", data)
+  const activePage = useSelector((state) => state.global.activePage);
   return (
     <Box display={isNonMobile ? "flex" : "block"} width="100%" height="100%">
       <Sidebar
@@ -21,7 +21,7 @@ const Layout = () => {
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
       />
-      <Box flexGrow={1}>
+      <Box flexGrow={1} style={{ overflow: activePage === 'geography' ? "hidden" : ""}}>
         <Navbar
           user={data || {}}
           isSidebarOpen={isSidebarOpen}

@@ -9,7 +9,7 @@ import {
 } from "@mui/icons-material";
 import FlexBetween from "components/FlexBetween";
 import { useDispatch } from "react-redux";
-import { setMode } from "state";
+import { setMode, setSearchQuery } from "state";
 import profileImage from "assets/profile.jpg";
 import {
   AppBar,
@@ -23,63 +23,67 @@ import {
   MenuItem,
   useTheme,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
-function Navbar({
-    user,
-    isSidebarOpen,
-    setIsSidebarOpen
-}) {
+function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
   const dispatch = useDispatch();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const isOpen = Boolean(anchorEl);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
+  const activePage = useSelector((state) => state.global.activePage);
+  const [query,setQuery] = useState()
+
+  const handleInputChange = (event) => {
+    // dispatch(setSearchQuery(event.target.value));
+    setQuery(event.target.value)
+  };
   return (
     <AppBar
       sx={{
-        position: "static",
+        position: activePage === "geography" ? "fixed" : "static",
         background: "none",
         boxShadow: "none",
       }}
     >
       <Toolbar
         sx={{
-          justifyContent: "space-between"
+          justifyContent: "space-between",
         }}
       >
         {/* /**LEFT SIDE */}
         <FlexBetween>
-          <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-            <MenuIcon />
-          </IconButton>
-          <FlexBetween
-            backgroundColor={theme.palette.background.alt}
-            borderRadius="9px"
-            gap="3rem"
-            p="0.1rem 1.5rem"
-          >
-            <InputBase placeholder="Search..." />
-            <IconButton>
-              <Search />
-            </IconButton>
-          </FlexBetween>
         </FlexBetween>
 
         {/* RIGHT SIDE */}
         <FlexBetween gap="1.5rem">
-            <IconButton onClick={()=> dispatch(setMode())}>
-                {theme.palette.mode === "dark" ? (
-                    <DarkModeOutlined sx={{ fontSize:"25px" }}/>
-                ):(
-                    <LightModeOutlined sx={{ fontSize: "25px" }}/>
-                )}
+          <FlexBetween
+            backgroundColor={theme.palette.background.alt}
+            borderRadius="9px"
+            gap="11rem"
+            p="0 2rem"
+          >
+            <IconButton sx={{ p: "10px" }} aria-label="menu" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+              <MenuIcon />
             </IconButton>
-            <IconButton>
-                <SettingsOutlined sx={{ fontSize:"25px" }}/>
+            <InputBase sx={{ height: "1px" }} placeholder="Search..." onChange={handleInputChange}/>
+            <IconButton onClick={() => dispatch(setSearchQuery(query))}>
+              <Search />
             </IconButton>
+          </FlexBetween>
+          <IconButton onClick={() => dispatch(setMode())}>
+            {theme.palette.mode === "dark" ? (
+              <DarkModeOutlined sx={{ fontSize: "25px" }} />
+            ) : (
+              <LightModeOutlined sx={{ fontSize: "25px" }} />
+            )}
+          </IconButton>
+          <IconButton>
+            <SettingsOutlined sx={{ fontSize: "25px" }} />
+          </IconButton>
 
-            <FlexBetween>
+          <FlexBetween>
             <Button
               onClick={handleClick}
               sx={{

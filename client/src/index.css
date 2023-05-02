@@ -27,3 +27,16 @@ body,
 /* ::-webkit-scrollbar-track:hover {
   background: #21295c;
 } */
+.custom-popup {
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.marker {
+  color: red;
+}

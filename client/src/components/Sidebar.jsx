@@ -32,6 +32,10 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
 import profileImage from "assets/profile.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { setActivePage } from "state";
+
+
 
 const navItems = [
   {
@@ -42,10 +46,10 @@ const navItems = [
     text: "Client Facing",
     icon: null,
   },
-  {
-    text: "Products",
-    icon: <ShoppingCartOutlined />,
-  },
+  // {
+  //   text: "Products",
+  //   icon: <ShoppingCartOutlined />,
+  // },
   {
     text: "Customers",
     icon: <Groups2Outlined />,
@@ -99,6 +103,8 @@ const Sidebar = ({
   setIsSidebarOpen,
   isNonMobile,
 }) => {
+  // const activePage = useSelector(state => state.global.activePage)
+  const dispatch = useDispatch()
   const { pathname } = useLocation();
   const [active, setActive] = useState("");
   const navigate = useNavigate();
@@ -106,6 +112,7 @@ const Sidebar = ({
 
   useEffect(() => {
     setActive(pathname.substring(1));
+    dispatch(setActivePage(active))
   }, [pathname]);
 
   return (
@@ -132,7 +139,7 @@ const Sidebar = ({
               <FlexBetween color={theme.palette.secondary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
                   <Typography variant="h4" fontWeight="bold">
-                    ECOMVISION
+                    DRS DASH
                   </Typography>
                 </Box>
                 {!isNonMobile && (
