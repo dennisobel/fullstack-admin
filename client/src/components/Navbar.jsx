@@ -43,6 +43,7 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
     <AppBar
       sx={{
         position: activePage === "geography" ? "fixed" : "static",
+        // position: "static",
         background: "none",
         boxShadow: "none",
       }}

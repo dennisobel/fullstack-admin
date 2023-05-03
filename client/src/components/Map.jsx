@@ -10,8 +10,10 @@ const MapView = ({ markers }) => {
     const [selectedMarker, setSelectedMarker] = useState();
     const [popupOpen, setPopupOpen] = useState(false);
     const [viewport, setViewport] = useState({
-        latitude: markers[Math.floor(markers.length / 2)].properties.latitude,
-        longitude: markers[Math.floor(markers.length / 2)].properties.longitude,
+        // latitude: markers[Math.floor(markers.length / 2)].properties.latitude,
+        // longitude: markers[Math.floor(markers.length / 2)].properties.longitude,
+        latitude: -1.2717167,
+        longitude: 36.8139821,
         zoom: 13
     });
 
@@ -20,7 +22,6 @@ const MapView = ({ markers }) => {
     };
 
     const handleSelected = (marker) => {
-        console.log('marker clicked:', marker);
         setSelectedMarker((prevMarker) => prevMarker === marker ? null : marker);
         setPopupOpen(true);
     };
@@ -32,17 +33,19 @@ const MapView = ({ markers }) => {
 
     useEffect(() => {
         selectedMarkerRef.current = selectedMarker;
-        console.log('selectedMarker:', selectedMarker);
-        console.log('selectedMarkerRef:', selectedMarkerRef.current);
         return () => {
             selectedMarkerRef.current = null;
         };
     }, [selectedMarker]);
 
+    const mapKey = JSON.stringify(viewport);
+
 
     return (
         <Map
+            key={mapKey}
             initialViewState={{ ...viewport }}
+            // viewport={viewport}
             onViewportChange={handleViewportChange}
             style={{ width: '100vw', height: '100vh' }}
             mapStyle="mapbox://styles/wesley254/clezjwl8d002001md18wexpan"
@@ -66,7 +69,8 @@ const MapView = ({ markers }) => {
                     </div>
                 </Popup>
             )}
-            <NavigationControl showCompass showZoom position='top-left' />
+
+            <NavigationControl showCompass showZoom position='bottom-left' />
         </Map>
     );
 };

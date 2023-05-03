@@ -12,6 +12,7 @@ const Layout = () => {
   const userId = useSelector((state) => state.global.userId);
   const {data} = useGetUserQuery(userId);
   const activePage = useSelector((state) => state.global.activePage);
+  
   return (
     <Box display={isNonMobile ? "flex" : "block"} width="100%" height="100%">
       <Sidebar
@@ -22,8 +23,8 @@ const Layout = () => {
         setIsSidebarOpen={setIsSidebarOpen}
       />
       
-      <Box flexGrow={1} style={{ overflow: activePage !== 'geography' && "hidden"}}>
-      {/* <Box flexGrow={1} style={{ overflow: activePage === "geography" ? "fixed" : "static"}}> */}
+      {/* <Box flexGrow={1} > */}
+      <Box flexGrow={1} style={{ overflow: activePage === 'geography' && "hidden"}}>
         <Navbar
           user={data || {}}
           isSidebarOpen={isSidebarOpen}

@@ -4,12 +4,14 @@ import { useGetGeographyQuery } from "state/api";
 import Header from "components/Header";
 import { ResponsiveChoropleth } from "@nivo/geo";
 import { geoData } from "state/geoData";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setActivePage } from "state";
 import data from "./data"
 
 import MapView from "components/Map";
 
 const Geography = () => {
+  const dispatch = useDispatch()
   const searchQuery = useSelector(state => state.global.searchQuery)
   const theme = useTheme();
   
@@ -19,6 +21,10 @@ const Geography = () => {
   const markers = data.features;
 
   const [filteredMarkers,setFilteredMarkers] = useState([...markers])
+
+  useEffect(() => {
+    dispatch(setActivePage("geography"))
+  }, []);
 
   useEffect(()=>{
     if(searchQuery === ""){
@@ -32,9 +38,9 @@ const Geography = () => {
   
   
   return (
-    
+    <React.Fragment>
       <MapView markers={filteredMarkers} />
-    
+    </React.Fragment>
   );
 };
 
