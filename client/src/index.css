@@ -79,3 +79,21 @@ body,
   right: 120px;
   z-index: 100;
 }
+
+/* Define the animation */
+@keyframes shimmer {
+  0% {
+    background-position: -100px 0;
+  }
+  100% {
+    background-position: 100px 0;
+  }
+}
+
+/* Apply the animation to the icon */
+.icon {
+  background: linear-gradient(to right, #0d1025 30%, #21295c 50%, #141937 70%);
+  background-size: 700px 100%;
+  animation: shimmer 10s infinite;
+}
+

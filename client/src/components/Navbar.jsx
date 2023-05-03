@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   LightModeOutlined,
   DarkModeOutlined,
@@ -35,6 +35,12 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
   const activePage = useSelector((state) => state.global.activePage);
   const [query, setQuery] = useState()
 
+  const [animationStyle, setAnimationStyle] = useState({});
+
+  useEffect(() => {
+    setAnimationStyle({ animation: 'shimmer 2s infinite' });
+  }, []);
+
   const handleInputChange = (event) => {
     // dispatch(setSearchQuery(event.target.value));
     setQuery(event.target.value)
@@ -65,7 +71,7 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
             gap="13rem"
             p="0 1rem"
           >
-            <IconButton sx={{ p: "10px" }} aria-label="menu" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+            <IconButton className="icon" style={animationStyle} sx={{ p: "10px" }} aria-label="menu" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
               <MenuIcon />
             </IconButton>
             <InputBase sx={{ height: "1px" }} placeholder="Search..." onChange={handleInputChange} />
