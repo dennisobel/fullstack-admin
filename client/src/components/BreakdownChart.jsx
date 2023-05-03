@@ -17,8 +17,10 @@ const BreakdownChart = ({ isDashboard = false }) => {
   ];
   const formattedData = Object.entries(data.salesByCategory).map(
     ([category, sales], i) => ({
-      id: category,
-      label: category,
+      // id: category,
+      // label: category,
+      id: `Ward ${i+1}`,
+      label: `Ward ${i+1}`,
       value: sales,
       color: colors[i],
     })
@@ -90,31 +92,31 @@ const BreakdownChart = ({ isDashboard = false }) => {
           from: "color",
           modifiers: [["darker", 2]],
         }}
-        legends={[
-          {
-            anchor: "bottom",
-            direction: "row",
-            justify: false,
-            translateX: isDashboard ? 20 : 0,
-            translateY: isDashboard ? 50 : 56,
-            itemsSpacing: 0,
-            itemWidth: 85,
-            itemHeight: 18,
-            itemTextColor: "#999",
-            itemDirection: "left-to-right",
-            itemOpacity: 1,
-            symbolSize: 18,
-            symbolShape: "circle",
-            effects: [
-              {
-                on: "hover",
-                style: {
-                  itemTextColor: theme.palette.primary[500],
-                },
-              },
-            ],
-          },
-        ]}
+        // legends={[
+        //   {
+        //     anchor: "bottom",
+        //     direction: "row",
+        //     justify: false,
+        //     translateX: isDashboard ? 20 : 0,
+        //     translateY: isDashboard ? 50 : 56,
+        //     itemsSpacing: 0,
+        //     itemWidth: 85,
+        //     itemHeight: 18,
+        //     itemTextColor: "#999",
+        //     itemDirection: "left-to-right",
+        //     itemOpacity: 1,
+        //     symbolSize: 18,
+        //     symbolShape: "circle",
+        //     effects: [
+        //       {
+        //         on: "hover",
+        //         style: {
+        //           itemTextColor: theme.palette.primary[500],
+        //         },
+        //       },
+        //     ],
+        //   },
+        // ]}
       />
       <Box
         position="absolute"

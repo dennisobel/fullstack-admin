@@ -33,7 +33,7 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
   const activePage = useSelector((state) => state.global.activePage);
-  const [query,setQuery] = useState()
+  const [query, setQuery] = useState()
 
   const handleInputChange = (event) => {
     // dispatch(setSearchQuery(event.target.value));
@@ -57,31 +57,32 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
         </FlexBetween>
 
         {/* RIGHT SIDE */}
-        <FlexBetween gap="1.5rem">
+        <FlexBetween gap="1rem">
           <FlexBetween
             backgroundColor={theme.palette.background.alt}
             borderRadius="9px"
             gap="11rem"
-            p="0 2rem"
+            p="0 1rem"
           >
             <IconButton sx={{ p: "10px" }} aria-label="menu" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
               <MenuIcon />
             </IconButton>
-            <InputBase sx={{ height: "1px" }} placeholder="Search..." onChange={handleInputChange}/>
+            <InputBase sx={{ height: "1px" }} placeholder="Search..." onChange={handleInputChange} />
             <IconButton onClick={() => dispatch(setSearchQuery(query))}>
               <Search />
             </IconButton>
+            <IconButton onClick={() => dispatch(setMode())}>
+              {theme.palette.mode === "dark" ? (
+                <DarkModeOutlined sx={{ fontSize: "25px" }} />
+              ) : (
+                <LightModeOutlined sx={{ fontSize: "25px" }} />
+              )}
+            </IconButton>
           </FlexBetween>
-          <IconButton onClick={() => dispatch(setMode())}>
-            {theme.palette.mode === "dark" ? (
-              <DarkModeOutlined sx={{ fontSize: "25px" }} />
-            ) : (
-              <LightModeOutlined sx={{ fontSize: "25px" }} />
-            )}
-          </IconButton>
-          <IconButton>
+
+          {/* <IconButton>
             <SettingsOutlined sx={{ fontSize: "25px" }} />
-          </IconButton>
+          </IconButton> */}
 
           <FlexBetween>
             <Button
@@ -103,7 +104,7 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
                 borderRadius="50%"
                 sx={{ objectFit: "cover" }}
               />
-              <Box textAlign="left">
+              {/* <Box textAlign="left">
                 <Typography
                   fontWeight="bold"
                   fontSize="0.85rem"
@@ -117,7 +118,7 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
                 >
                   {user.occupation}
                 </Typography>
-              </Box>
+              </Box> */}
               <ArrowDropDownOutlined
                 sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
               />

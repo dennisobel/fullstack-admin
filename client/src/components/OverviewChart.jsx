@@ -12,12 +12,12 @@ const OverviewChart = ({ isDashboard = false, view }) => {
 
     const { monthlyData } = data;
     const totalSalesLine = {
-      id: "totalSales",
+      id: "totalRevenue",
       color: theme.palette.secondary.main,
       data: [],
     };
     const totalUnitsLine = {
-      id: "totalUnits",
+      id: "totalDeficit",
       color: theme.palette.secondary[600],
       data: [],
     };
@@ -117,7 +117,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
         tickRotation: 0,
         legend: isDashboard
           ? ""
-          : `Total ${view === "sales" ? "Revenue" : "Units"} for Year`,
+          : `Total ${view === "sales" ? "Revenue" : "Deficit"} for Year`,
         legendOffset: -60,
         legendPosition: "middle",
       }}

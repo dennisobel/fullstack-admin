@@ -35,14 +35,14 @@ const Admin = () => {
     },
     {
       field: "country",
-      headerName: "Country",
+      headerName: "Ward",
       flex: 0.4,
     },
-    {
-      field: "occupation",
-      headerName: "Occupation",
-      flex: 1,
-    },
+    // {
+    //   field: "occupation",
+    //   headerName: "Occupation",
+    //   flex: 1,
+    // },
     {
       field: "role",
       headerName: "Role",
@@ -52,7 +52,7 @@ const Admin = () => {
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="ADMINS" subtitle="Managing admins and list of admins" />
+      <Header title="REVENUE ADMINS" subtitle="List of revenue admins"/>
       <Box
         mt="40px"
         height="75vh"

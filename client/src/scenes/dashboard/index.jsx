@@ -42,16 +42,16 @@ const Dashboard = () => {
       headerName: "CreatedAt",
       flex: 1,
     },
-    {
-      field: "products",
-      headerName: "# of Products",
-      flex: 0.5,
-      sortable: false,
-      renderCell: (params) => params.value.length,
-    },
+    // {
+    //   field: "products",
+    //   headerName: "# of Products",
+    //   flex: 0.5,
+    //   sortable: false,
+    //   renderCell: (params) => params.value.length,
+    // },
     {
       field: "cost",
-      headerName: "Cost",
+      headerName: "Revenue",
       flex: 1,
       renderCell: (params) => `$${Number(params.value).toFixed(2)}`,
     },
@@ -90,7 +90,7 @@ const Dashboard = () => {
       >
         {/* ROW 1 */}
         <StatBox
-          title="Total Customers"
+          title="Businesses Registered"
           value={data && data.totalCustomers}
           increase="+14%"
           description="Since last month"
@@ -101,7 +101,7 @@ const Dashboard = () => {
           }
         />
         <StatBox
-          title="Sales Today"
+          title="Revenue Today"
           value={data && data.todayStats.totalSales}
           increase="+21%"
           description="Since last month"
@@ -121,7 +121,7 @@ const Dashboard = () => {
           <OverviewChart view="sales" isDashboard={true} />
         </Box>
         <StatBox
-          title="Monthly Sales"
+          title="Monthly Revenue"
           value={data && data.thisMonthStats.totalSales}
           increase="+5%"
           description="Since last month"
@@ -132,7 +132,7 @@ const Dashboard = () => {
           }
         />
         <StatBox
-          title="Yearly Sales"
+          title="Yearly Revenue"
           value={data && data.yearlySalesTotal}
           increase="+43%"
           description="Since last month"
@@ -188,7 +188,7 @@ const Dashboard = () => {
           borderRadius="0.55rem"
         >
           <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
-            Sales By Category
+            Revenue By Ward
           </Typography>
           <BreakdownChart isDashboard={true} />
           <Typography
@@ -196,8 +196,8 @@ const Dashboard = () => {
             fontSize="0.8rem"
             sx={{ color: theme.palette.secondary[200] }}
           >
-            Breakdown of real states and information via category for revenue
-            made for this year and total sales.
+            Breakdown of wards' revenue
+            made for this year and total revenue.
           </Typography>
         </Box>
       </Box>
