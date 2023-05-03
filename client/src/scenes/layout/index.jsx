@@ -22,7 +22,8 @@ const Layout = () => {
         setIsSidebarOpen={setIsSidebarOpen}
       />
       
-      <Box flexGrow={1} style={{ overflow: activePage === 'geography' && "hidden"}}>
+      <Box flexGrow={1} style={{ overflow: activePage !== 'geography' && "hidden"}}>
+      {/* <Box flexGrow={1} style={{ overflow: activePage === "geography" ? "fixed" : "static"}}> */}
         <Navbar
           user={data || {}}
           isSidebarOpen={isSidebarOpen}

@@ -21,8 +21,11 @@ const Geography = () => {
   const [filteredMarkers,setFilteredMarkers] = useState([...markers])
 
   useEffect(()=>{
+    if(searchQuery === ""){
+      setFilteredMarkers(markers)
+    }
     let filtered = markers.filter(marker => {
-      return marker.properties.ward.includes(searchQuery)
+      return marker.properties.ward.toLowerCase().includes(searchQuery.toLowerCase())
     })
     setFilteredMarkers(filtered)
   },[searchQuery])

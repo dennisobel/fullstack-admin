@@ -61,7 +61,7 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
           <FlexBetween
             backgroundColor={theme.palette.background.alt}
             borderRadius="9px"
-            gap="11rem"
+            gap="13rem"
             p="0 1rem"
           >
             <IconButton sx={{ p: "10px" }} aria-label="menu" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
@@ -120,7 +120,7 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
                 </Typography>
               </Box> */}
               <ArrowDropDownOutlined
-                sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
+                sx={{ color: theme.palette.secondary[600], fontSize: "25px" }}
               />
             </Button>
             <Menu
@@ -129,7 +129,9 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
+              <MenuItem >{user.name}</MenuItem>
+              <MenuItem >{user.occupation}</MenuItem>
+              <MenuItem sx={{ color: theme.palette.secondary[500] }} onClick={handleClose}>Log Out</MenuItem>
             </Menu>
           </FlexBetween>
         </FlexBetween>
