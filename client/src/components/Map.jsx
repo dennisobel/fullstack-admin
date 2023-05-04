@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Map, { Marker, Popup, NavigationControl } from 'react-map-gl';
 
 const MapView = ({ markers }) => {
-    console.log("markers:",markers)
+    console.log("markers:", markers)
     const MapMarker = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"%3E%3Cpath d="M12 2C8.13 2 5 5.13 5 9c0 6 7 13 7 13s7-7 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" /%3E%3C/svg%3E'
 
     const selectedMarkerRef = useRef();
@@ -38,6 +38,48 @@ const MapView = ({ markers }) => {
 
     const mapKey = JSON.stringify(viewport);
 
+    const Dot = ({ color, label, index }) => (
+        <div
+            style={{
+                position: 'absolute',
+                top: `${10 + index * 20}px`,
+                left: '10px',
+                display: 'flex',
+                alignItems: 'center',
+            }}
+        >
+            <div
+                style={{
+                    backgroundColor: color,
+                    height: '10px',
+                    width: '10px',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '0.8rem',
+                    fontWeight: 'bold',
+                    color: '#fff',
+                    textTransform: 'uppercase',
+                    padding: '2px',
+                    pointerEvents: 'none',
+                }}
+            >
+                &nbsp;
+            </div>
+            <div
+                style={{
+                    marginLeft: '5px',
+                    fontSize: '0.6rem',
+                    fontWeight: 'bold',
+                    color: '#ffd166',
+                    textTransform: 'uppercase',
+                }}
+            >
+                {label}
+            </div>
+        </div>
+    );
 
     return (
         <Map
@@ -51,14 +93,14 @@ const MapView = ({ markers }) => {
         >
             {markers.map((marker, index) => (
                 <Marker key={index} latitude={marker.properties.latitude} longitude={marker.properties.longitude} anchor="bottom">
-                    <img 
-                        onClick={() => handleSelected(marker)} 
+                    <img
+                        onClick={() => handleSelected(marker)}
                         style={{
-                            height: "30px", 
-                            width: "30px", 
-                            cursor: "pointer", 
-                            backgroundColor: marker.properties.paymentstatus === "paid" ? "green" : marker.properties.paymentstatus === "partially paid" ? "yellow" : "red", borderRadius: "50px" 
-                        }} 
+                            height: "30px",
+                            width: "30px",
+                            cursor: "pointer",
+                            backgroundColor: marker.properties.paymentstatus === "paid" ? "green" : marker.properties.paymentstatus === "partially paid" ? "yellow" : "red", borderRadius: "50px"
+                        }}
                         src={MapMarker} alt="mapmarker" />
                 </Marker>
             ))}
@@ -76,6 +118,9 @@ const MapView = ({ markers }) => {
                 </Popup>
             )}
 
+            <Dot color="green" label="Paid" index={0} />
+            <Dot color="yellow" label="Partially paid" index={1} />
+            <Dot color="red" label="Not paid" index={2} />
             <NavigationControl showCompass showZoom position='bottom-left' />
         </Map>
     );
