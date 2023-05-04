@@ -68,13 +68,14 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
           <FlexBetween
             backgroundColor={theme.palette.background.alt}
             borderRadius="9px"
-            gap="13rem"
+            gap="5rem"
             p="0 1rem"
           >
-            <IconButton className="icon" style={animationStyle} sx={{ p: "10px" }} aria-label="menu" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+            <IconButton className="icon" style={animationStyle} sx={{ p: "8px" }} aria-label="menu" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
               <MenuIcon />
             </IconButton>
-            <InputBase sx={{ height: "1px" }} placeholder="Search..." onChange={handleInputChange} />
+            {activePage === "geography" && <InputBase sx={{ height: "1px", width: "524px" }} placeholder="Filter subcounty, ward, street, payment status, building number, type of structure" onChange={handleInputChange} />}
+
             {/* <IconButton onClick={() => dispatch(setSearchQuery(query))}>
               <Search />
             </IconButton> */}

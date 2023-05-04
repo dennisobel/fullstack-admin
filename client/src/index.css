@@ -92,7 +92,7 @@ body,
 
 /* Apply the animation to the icon */
 .icon {
-  background: linear-gradient(to right, #0d1025 30%, #21295c 50%, #141937 70%);
+  /* background: linear-gradient(to right, #0d1025 30%, #21295c 50%, #141937 70%); */
   background-size: 700px 100%;
   animation: shimmer 10s infinite;
 }
