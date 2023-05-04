@@ -42,7 +42,7 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
   }, []);
 
   const handleInputChange = (event) => {
-    // dispatch(setSearchQuery(event.target.value));
+    dispatch(setSearchQuery(event.target.value));
     setQuery(event.target.value)
   };
   return (
@@ -75,9 +75,9 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
               <MenuIcon />
             </IconButton>
             <InputBase sx={{ height: "1px" }} placeholder="Search..." onChange={handleInputChange} />
-            <IconButton onClick={() => dispatch(setSearchQuery(query))}>
+            {/* <IconButton onClick={() => dispatch(setSearchQuery(query))}>
               <Search />
-            </IconButton>
+            </IconButton> */}
             <IconButton onClick={() => dispatch(setMode())}>
               {theme.palette.mode === "dark" ? (
                 <DarkModeOutlined sx={{ fontSize: "25px" }} />

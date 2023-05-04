@@ -2,8 +2,60 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Map, { Marker, Popup, NavigationControl } from 'react-map-gl';
 
+const Dot = ({ color, label, index, onClick }) => {
+    const [animationStyle, setAnimationStyle] = useState({});
+
+    useEffect(() => {
+        setAnimationStyle({ animation: 'blink 2s infinite' });
+    }, []);
+
+    return (
+        <div
+            style={{
+                position: "absolute",
+                top: `${10 + index * 20}px`,
+                left: "10px",
+                display: "flex",
+                alignItems: "center",
+            }}
+        >
+            <div
+                style={{
+                    backgroundColor: color,
+                    height: "10px",
+                    width: "10px",
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "0.8rem",
+                    fontWeight: "bold",
+                    color: "#fff",
+                    textTransform: "uppercase",
+                    padding: "5px",
+                }}
+            >
+                &nbsp;
+            </div>
+            <div
+                className="label"
+                style={{
+                    ...animationStyle,
+                    marginLeft: "5px",
+                    fontSize: "0.6rem",
+                    fontWeight: "bold",
+                    color: "#ffd166",
+                    textTransform: "uppercase",
+                }}
+            >
+                {label}
+            </div>
+        </div>
+    );
+};
+
 const MapView = ({ markers }) => {
-    console.log("markers:", markers)
+    // console.log("markers:", markers)
     const MapMarker = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"%3E%3Cpath d="M12 2C8.13 2 5 5.13 5 9c0 6 7 13 7 13s7-7 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" /%3E%3C/svg%3E'
 
     const selectedMarkerRef = useRef();
@@ -38,58 +90,18 @@ const MapView = ({ markers }) => {
 
     const mapKey = JSON.stringify(viewport);
 
-    const Dot = ({ color, label, index }) => {
-        const [animationStyle, setAnimationStyle] = useState({});
 
-        useEffect(() => {
-          setAnimationStyle({ animation: 'blink 2s infinite' });
-        }, []);
 
-        return (
-            <div
-                style={{
-                    position: "absolute",
-                    top: `${10 + index * 20}px`,
-                    left: "10px",
-                    display: "flex",
-                    alignItems: "center",
-                }}
-            >
-                <div
-                    style={{
-                        backgroundColor: color,
-                        height: "10px",
-                        width: "10px",
-                        borderRadius: "50%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "0.8rem",
-                        fontWeight: "bold",
-                        color: "#fff",
-                        textTransform: "uppercase",
-                        padding: "2px",
-                        pointerEvents: "none",
-                    }}
-                >
-                    &nbsp;
-                </div>
-                    <div
-                    className="label" 
-                        style={{
-                            ...animationStyle,
-                            marginLeft: "5px",
-                            fontSize: "0.6rem",
-                            fontWeight: "bold",
-                            color: "#ffd166",
-                            textTransform: "uppercase",
-                        }}
-                    >
-                        {label}
-                    </div>
-            </div>
-        );
+    const handleDotClick = (paymentStatus) => {
+        console.log(`Clicked ${paymentStatus}`);
     };
+
+    const dots = [
+        { color: "green", label: "Paid", value: "Paid" },
+        { color: "yellow", label: "Partially paid", value: "Partially paid" },
+        { color: "red", label: "Not paid", value: "Not paid" },
+    ];
+
 
 
     return (
@@ -131,9 +143,15 @@ const MapView = ({ markers }) => {
 
 
             <NavigationControl showCompass showZoom position='bottom-left' />
-            <Dot color="green" label="Paid" index={0} />
-            <Dot color="yellow" label="Partially paid" index={1} />
-            <Dot color="red" label="Not paid" index={2} />
+            {dots.map((dot, index) => (
+                <Dot
+                    key={index}
+                    index={index}
+                    color={dot.color}
+                    label={dot.label}
+                    onClick={() => handleDotClick(dot.value)}
+                />
+            ))}
         </Map>
     );
 };
