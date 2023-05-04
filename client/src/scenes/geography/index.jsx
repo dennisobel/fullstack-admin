@@ -23,7 +23,7 @@ const Geography = () => {
   const [filteredMarkers, setFilteredMarkers] = useState([...markers])
 
   useEffect(() => {
-    setFilteredMarkers(markers)
+    // setFilteredMarkers(markers)
     dispatch(setActivePage("geography"))
   }, []);
 
