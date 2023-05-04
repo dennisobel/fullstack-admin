@@ -3,12 +3,12 @@ import React, { useEffect, useState, useRef } from 'react';
 import Map, { Marker, Popup, NavigationControl } from 'react-map-gl';
 
 const MapView = ({ markers }) => {
+    console.log("markers:",markers)
     const MapMarker = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"%3E%3Cpath d="M12 2C8.13 2 5 5.13 5 9c0 6 7 13 7 13s7-7 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" /%3E%3C/svg%3E'
 
     const selectedMarkerRef = useRef();
 
     const [selectedMarker, setSelectedMarker] = useState();
-    const [popupOpen, setPopupOpen] = useState(false);
     const [viewport, setViewport] = useState({
         // latitude: markers[Math.floor(markers.length / 2)].properties.latitude,
         // longitude: markers[Math.floor(markers.length / 2)].properties.longitude,
@@ -23,12 +23,10 @@ const MapView = ({ markers }) => {
 
     const handleSelected = (marker) => {
         setSelectedMarker((prevMarker) => prevMarker === marker ? null : marker);
-        setPopupOpen(true);
     };
 
     const handleClosePopup = () => {
         setSelectedMarker(null);
-        setPopupOpen(false);
     };
 
     useEffect(() => {
@@ -53,7 +51,15 @@ const MapView = ({ markers }) => {
         >
             {markers.map((marker, index) => (
                 <Marker key={index} latitude={marker.properties.latitude} longitude={marker.properties.longitude} anchor="bottom">
-                    <img onClick={() => handleSelected(marker)} style={{ height: "30px", width: "30px", cursor: "pointer", backgroundColor:"teal", borderRadius:"50px" }} src={MapMarker} alt="mapmarker" />
+                    <img 
+                        onClick={() => handleSelected(marker)} 
+                        style={{
+                            height: "30px", 
+                            width: "30px", 
+                            cursor: "pointer", 
+                            backgroundColor: marker.properties.paymentstatus === "paid" ? "green" : marker.properties.paymentstatus === "partially paid" ? "yellow" : "red", borderRadius: "50px" 
+                        }} 
+                        src={MapMarker} alt="mapmarker" />
                 </Marker>
             ))}
 
