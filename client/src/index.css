@@ -97,3 +97,22 @@ body,
   animation: shimmer 10s infinite;
 }
 
+/* Define the animation */
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Apply the animation to the label */
+.label {
+  animation: blink 5s ease-in-out infinite;
+}
+
+

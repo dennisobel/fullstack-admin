@@ -38,48 +38,59 @@ const MapView = ({ markers }) => {
 
     const mapKey = JSON.stringify(viewport);
 
-    const Dot = ({ color, label, index }) => (
-        <div
-            style={{
-                position: 'absolute',
-                top: `${10 + index * 20}px`,
-                left: '10px',
-                display: 'flex',
-                alignItems: 'center',
-            }}
-        >
+    const Dot = ({ color, label, index }) => {
+        const [animationStyle, setAnimationStyle] = useState({});
+
+        useEffect(() => {
+          setAnimationStyle({ animation: 'blink 2s infinite' });
+        }, []);
+
+        return (
             <div
                 style={{
-                    backgroundColor: color,
-                    height: '10px',
-                    width: '10px',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '0.8rem',
-                    fontWeight: 'bold',
-                    color: '#fff',
-                    textTransform: 'uppercase',
-                    padding: '2px',
-                    pointerEvents: 'none',
+                    position: "absolute",
+                    top: `${10 + index * 20}px`,
+                    left: "10px",
+                    display: "flex",
+                    alignItems: "center",
                 }}
             >
-                &nbsp;
+                <div
+                    style={{
+                        backgroundColor: color,
+                        height: "10px",
+                        width: "10px",
+                        borderRadius: "50%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "0.8rem",
+                        fontWeight: "bold",
+                        color: "#fff",
+                        textTransform: "uppercase",
+                        padding: "2px",
+                        pointerEvents: "none",
+                    }}
+                >
+                    &nbsp;
+                </div>
+                    <div
+                    className="label" 
+                        style={{
+                            ...animationStyle,
+                            marginLeft: "5px",
+                            fontSize: "0.6rem",
+                            fontWeight: "bold",
+                            color: "#ffd166",
+                            textTransform: "uppercase",
+                        }}
+                    >
+                        {label}
+                    </div>
             </div>
-            <div
-                style={{
-                    marginLeft: '5px',
-                    fontSize: '0.6rem',
-                    fontWeight: 'bold',
-                    color: '#ffd166',
-                    textTransform: 'uppercase',
-                }}
-            >
-                {label}
-            </div>
-        </div>
-    );
+        );
+    };
+
 
     return (
         <Map
@@ -118,10 +129,11 @@ const MapView = ({ markers }) => {
                 </Popup>
             )}
 
+
+            <NavigationControl showCompass showZoom position='bottom-left' />
             <Dot color="green" label="Paid" index={0} />
             <Dot color="yellow" label="Partially paid" index={1} />
             <Dot color="red" label="Not paid" index={2} />
-            <NavigationControl showCompass showZoom position='bottom-left' />
         </Map>
     );
 };
