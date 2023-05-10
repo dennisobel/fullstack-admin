@@ -1,5 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Map, { Marker, Popup, NavigationControl } from 'react-map-gl';
+import Map, { Marker, Popup, NavigationControl, Source, Layer } from 'react-map-gl';
+import ReactMapGL from 'react-map-gl';
+// import { interpolateOranges } from 'd3-scale-chromatic';
+import { interpolateOranges, interpolateGreens, interpolateReds, interpolateYlOrRd } from 'd3-scale-chromatic';
+import { useSelector } from 'react-redux';
 
 const Dot = ({ color, label, index, onClick }) => {
     const [animationStyle, setAnimationStyle] = useState({});
@@ -54,14 +58,10 @@ const Dot = ({ color, label, index, onClick }) => {
 };
 
 const MapView = ({ markers }) => {
+    const mapType = useSelector(state => state.global.mapType)
     const MapMarker = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"%3E%3Cpath d="M12 2C8.13 2 5 5.13 5 9c0 6 7 13 7 13s7-7 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" /%3E%3C/svg%3E'
-
     const selectedMarkerRef = useRef();
-
-    const [selectedMarker, setSelectedMarker] = useState(
-        // {
-        //   }
-    );
+    const [selectedMarker, setSelectedMarker] = useState();
     const [viewport, setViewport] = useState({
         latitude: -1.2717167,
         longitude: 36.8139821,
@@ -83,15 +83,9 @@ const MapView = ({ markers }) => {
 
     useEffect(() => {
         selectedMarkerRef.current = selectedMarker;
-        // return () => {
-        //     selectedMarkerRef.current = null;
-        // };
     }, [selectedMarker]);
 
     const mapKey = JSON.stringify(viewport);
-    const handleDotClick = (paymentStatus) => {
-        console.log(`Clicked ${paymentStatus}`);
-    };
 
     const dots = [
         { color: "green", label: "Paid", value: "Paid" },
@@ -99,17 +93,96 @@ const MapView = ({ markers }) => {
         { color: "red", label: "Not paid", value: "Not paid" },
     ];
 
+    const getHeatmapColor = (value) => {
+        const scale = interpolateOranges;
+        return scale(value);
+    };
+
+    const paidColor = (value) => {
+        const scale = interpolateGreens;
+        return scale(value);
+    };
+
+    const notPaidColor = (value) => {
+        const scale = interpolateReds;
+        return scale(value);
+    };
+
+    const partiallyPaidColor = (value) => {
+        const scale = interpolateYlOrRd;
+        return scale(value);
+    };
+
+    const colorScale = {
+        paid: '#4CAF50',
+        partiallyPaid: '#FFC107',
+        notPaid: '#F44336',
+    };
+
+    const heatmapLayer = {
+        id: 'heatmap-layer',
+        type: 'heatmap',
+        source: {
+            type: 'geojson',
+            data: markers
+        },
+        paint: {
+            'heatmap-opacity': 0.8,
+            'heatmap-radius': 15,
+            'heatmap-weight': [
+                'interpolate',
+                ['linear'],
+                // ['get', 'density'],
+                ['to-number', ['get', 'paymentstatus']],
+                0, 0,
+                1, 1
+            ],
+            'heatmap-color': [
+                'interpolate',
+                ['linear'],
+                ['heatmap-density'],
+                0, 'rgba(0, 0, 255, 0)',
+                0.2, notPaidColor(0.2),
+                0.4, partiallyPaidColor(0.4),
+                0.6, paidColor(0.6),
+                // 0.2,
+                // colorScale.notPaid,
+                // 0.4,
+                // colorScale.partiallyPaid,
+                // 0.6,
+                // colorScale.paid,
+                0.8, getHeatmapColor(0.8)
+            ]
+        }
+    };
+
+    const handleMarkerClick = (marker) => {
+        setSelectedMarker(marker);
+        handleSelected(marker);
+    };
+
+    const circlePaint = {
+        'circle-radius': 10,
+        'circle-color': [
+            'match',
+            ['get', 'paymentstatus'],
+            'paid', 'green',
+            'partially paid', 'yellow',
+            'red'
+        ],
+        // 'cursor':'pointer'
+    };
+
     return (
-        <Map
+        <ReactMapGL
             key={mapKey}
             initialViewState={{ ...viewport }}
-            // viewport={viewport}
             onViewportChange={handleViewportChange}
             style={{ width: '100vw', height: '100vh' }}
             mapStyle="mapbox://styles/wesley254/clezjwl8d002001md18wexpan"
             mapboxAccessToken='pk.eyJ1Ijoid2VzbGV5MjU0IiwiYSI6ImNsMzY2dnA0MDAzem0zZG8wZTFzc3B3eG8ifQ.EVg7Sg3_wpa_QO6EJjj9-g'
         >
-            {markers.map((marker, index) => (
+            {mapType === "Markers" ? (markers.map((marker, index) => (
                 <Marker key={index} latitude={marker.properties.latitude} longitude={marker.properties.longitude} anchor="bottom">
                     <img
                         onClick={() => { handleSelected(marker); }}
@@ -121,9 +194,13 @@ const MapView = ({ markers }) => {
                         }}
                         src={MapMarker} alt="mapmarker" />
                 </Marker>
-            ))}
+            ))) : mapType === "Clusters" ? (<Source type="geojson" data={{ type: 'FeatureCollection', features: markers }}>
+                <Layer style={{ cursor: 'pointer' }}  {...heatmapLayer} onClick={(e) => {
+                    const marker = e.features[0];
+                    handleSelected(marker)
+                }} interactive={true} />
+            </Source>) : (<></>)}
 
-            {console.log(selectedMarker)}
             {selectedMarker && (
 
                 <Popup
@@ -206,10 +283,9 @@ const MapView = ({ markers }) => {
                     index={index}
                     color={dot.color}
                     label={dot.label}
-                    onClick={() => handleDotClick(dot.value)}
                 />
             ))}
-        </Map>
+        </ReactMapGL>
     );
 };
 

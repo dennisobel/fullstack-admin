@@ -15,14 +15,11 @@ const Geography = () => {
   const searchQuery = useSelector(state => state.global.searchQuery)
   const theme = useTheme();
 
-
-  console.log(searchQuery)
   const markers = data.features;
 
   const [filteredMarkers, setFilteredMarkers] = useState([...markers])
 
   useEffect(() => {
-    // setFilteredMarkers(markers)
     dispatch(setActivePage("geography"))
   }, []);
 
@@ -31,7 +28,6 @@ const Geography = () => {
       setFilteredMarkers(markers)
     }
     let filtered = markers.filter(marker => {
-      // return marker.properties.ward.toLowerCase().includes(searchQuery.toLowerCase())
       if (marker.properties.subcounty.toLowerCase().includes(searchQuery.toLowerCase())) {
         return marker.properties.subcounty.toLowerCase().includes(searchQuery.toLowerCase())
       }
@@ -57,7 +53,6 @@ const Geography = () => {
       }
     })
 
-    console.log(filtered)
     setFilteredMarkers(filtered)
   }, [searchQuery])
 

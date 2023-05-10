@@ -15,10 +15,6 @@ const Layout = () => {
   const activePage = useSelector((state) => state.global.activePage);
   const {data} = useGetUserQuery(userId);
 
-  useEffect(() => {
-    console.log("SIGNUP DATA:",signup)
-  },[])  
-
   useEffect(()=>{
     if(activePage === "geography") {
       setIsSidebarOpen(false)

@@ -5,7 +5,7 @@
 // import { Box, useTheme } from "@mui/material";
 // import { Icon } from "@mui/material";
 // import { LocationOn } from "@mui/icons-material";
-import MapMarker from "../assets/map.png"
+// import MapMarker from "../assets/map.png"
 // import ReactDOMServer from 'react-dom/server';
 
 // const MapContainer = styled(Box)(({ theme }) => ({

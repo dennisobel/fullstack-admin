@@ -8,8 +8,8 @@ import {
   ArrowDropDownOutlined,
 } from "@mui/icons-material";
 import FlexBetween from "components/FlexBetween";
-import { useDispatch } from "react-redux";
-import { setMode, setSearchQuery } from "state";
+import { useDispatch, useSelector } from "react-redux";
+import { setMode, setSearchQuery, setMapType } from "state";
 import profileImage from "assets/profile.jpg";
 import {
   AppBar,
@@ -23,7 +23,6 @@ import {
   MenuItem,
   useTheme,
 } from "@mui/material";
-import { useSelector } from "react-redux";
 
 function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
   const dispatch = useDispatch();
@@ -36,6 +35,7 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
   const [query, setQuery] = useState()
 
   const [animationStyle, setAnimationStyle] = useState({});
+  const mapType = ["Markers","Clusters","Navigate"]
 
   useEffect(() => {
     setAnimationStyle({ animation: 'shimmer 2s infinite' });
@@ -119,12 +119,7 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              <MenuItem >Location Markers</MenuItem>
-              <MenuItem >Clusters</MenuItem>
-              <MenuItem >Navigate</MenuItem>
-              {/* <MenuItem >{user.name}</MenuItem>
-              <MenuItem >{user.occupation}</MenuItem>
-              <MenuItem sx={{ color: theme.palette.secondary[500] }} onClick={handleClose}>Log Out</MenuItem> */}
+              {mapType.map(el => <MenuItem key={el} onClick={() => dispatch(setMapType(el))}>{el}</MenuItem>)}
             </Menu>
           </FlexBetween>
         </FlexBetween>

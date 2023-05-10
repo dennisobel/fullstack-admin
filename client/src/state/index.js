@@ -25,6 +25,7 @@ const initialState = {
     password: "",
     block: ""
   },
+  mapType: "Markers"
 };
 
 export const globalSlice = createSlice({
@@ -51,6 +52,9 @@ export const globalSlice = createSlice({
     },
     setRevenueOfficer: (state, action) => {
         state.revenueOfficer = action.payload
+    },
+    setMapType: (state, action) => {
+      state.mapType = action.payload
     }
   },
 });
@@ -62,7 +66,8 @@ export const {
   setIsAuthenticated,
   setSignup,
   setOtp,
-  setRevenueOfficer
+  setRevenueOfficer,
+  setMapType
 } = globalSlice.actions;
 
 export default globalSlice.reducer;
