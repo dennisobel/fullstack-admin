@@ -36,7 +36,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setActivePage } from "state";
 
 
-
 const navItems = [
   {
     text: "Dashboard",
@@ -90,10 +89,10 @@ const navItems = [
     text: "Admin",
     icon: <AdminPanelSettingsOutlined />,
   },
-  // {
-  //   text: "Performance",
-  //   icon: <TrendingUpOutlined />,
-  // },
+  {
+    text: "Performance",
+    icon: <TrendingUpOutlined />,
+  },
 ];
 
 const Sidebar = ({

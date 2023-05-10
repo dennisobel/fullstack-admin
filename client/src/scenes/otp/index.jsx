@@ -12,7 +12,7 @@ import validator from "validator";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setIsAuthenticated } from "state";
+import { setIsAuthenticated, setOtp } from "state";
 
 const OTPForm = () => {
   const navigate = useNavigate()
@@ -32,7 +32,7 @@ const OTPForm = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const errors = {
@@ -43,7 +43,8 @@ const OTPForm = () => {
 
     if (!Object.values(errors).some(Boolean)) {
       console.log("Form submitted successfully:", formValues);
-      dispatch(setIsAuthenticated())
+      dispatch(setOtp(formValues))
+      // dispatch(setIsAuthenticated())
       navigate("/dashboard")
     }
   };

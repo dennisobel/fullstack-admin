@@ -61,6 +61,7 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
       >
         {/* /**LEFT SIDE */}
         <FlexBetween>
+
         </FlexBetween>
 
         {/* RIGHT SIDE */}
@@ -88,10 +89,6 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
             </IconButton>
           </FlexBetween>
 
-          {/* <IconButton>
-            <SettingsOutlined sx={{ fontSize: "25px" }} />
-          </IconButton> */}
-
           <FlexBetween>
             <Button
               onClick={handleClick}
@@ -112,21 +109,6 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
                 borderRadius="50%"
                 sx={{ objectFit: "cover" }}
               />
-              {/* <Box textAlign="left">
-                <Typography
-                  fontWeight="bold"
-                  fontSize="0.85rem"
-                  sx={{ color: theme.palette.secondary[100] }}
-                >
-                  {user.name}
-                </Typography>
-                <Typography
-                  fontSize="0.75rem"
-                  sx={{ color: theme.palette.secondary[200] }}
-                >
-                  {user.occupation}
-                </Typography>
-              </Box> */}
               <ArrowDropDownOutlined
                 sx={{ color: theme.palette.secondary[600], fontSize: "25px" }}
               />
@@ -137,9 +119,12 @@ function Navbar({ user, isSidebarOpen, setIsSidebarOpen }) {
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              <MenuItem >{user.name}</MenuItem>
+              <MenuItem >Location Markers</MenuItem>
+              <MenuItem >Clusters</MenuItem>
+              <MenuItem >Navigate</MenuItem>
+              {/* <MenuItem >{user.name}</MenuItem>
               <MenuItem >{user.occupation}</MenuItem>
-              <MenuItem sx={{ color: theme.palette.secondary[500] }} onClick={handleClose}>Log Out</MenuItem>
+              <MenuItem sx={{ color: theme.palette.secondary[500] }} onClick={handleClose}>Log Out</MenuItem> */}
             </Menu>
           </FlexBetween>
         </FlexBetween>

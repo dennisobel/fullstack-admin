@@ -45,6 +45,15 @@ export const api = createApi({
             query: () => "general/dashboard",
             providesTags: ["Dashboard"],
         }),
+        /**SIGNUP */
+        postUser: build.mutation({
+            query: (signupData) => ({
+                url: "",
+                method: "POST",
+                body: signupData
+            }),
+            invalidatesTags: ["User"],
+        })
     })
 })
 

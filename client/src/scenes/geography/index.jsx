@@ -17,7 +17,6 @@ const Geography = () => {
 
 
   console.log(searchQuery)
-
   const markers = data.features;
 
   const [filteredMarkers, setFilteredMarkers] = useState([...markers])

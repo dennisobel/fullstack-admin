@@ -73,6 +73,28 @@ body,
   z-index: 9999;
 }
 
+.mapboxgl-canvas .mapboxgl-interactive {
+  cursor: pointer;
+}
+
+
+.mapboxgl-popup {
+  max-width: 300px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.mapboxgl-popup-content {
+  padding: 10px;
+}
+
+.mapboxgl-popup-close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #ffffff;
+}
+
 .navigation-control {
   position: absolute;
   top: 120px;
@@ -149,3 +171,8 @@ body,
   color: green;
   margin: 30px;
 }
+
+
+
+
+

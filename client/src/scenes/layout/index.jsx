@@ -11,8 +11,13 @@ const Layout = () => {
   const isNonMobile = useMediaQuery("(min-width: 600px)");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const userId = useSelector((state) => state.global.userId);
-  const {data} = useGetUserQuery(userId);
+  const signup = useSelector(state => state.global.signup)
   const activePage = useSelector((state) => state.global.activePage);
+  const {data} = useGetUserQuery(userId);
+
+  useEffect(() => {
+    console.log("SIGNUP DATA:",signup)
+  },[])  
 
   useEffect(()=>{
     if(activePage === "geography") {
