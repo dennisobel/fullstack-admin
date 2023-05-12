@@ -17,12 +17,12 @@ const Daily = () => {
 
     const { dailyData } = data;
     const totalSalesLine = {
-      id: "totalSales",
+      id: "Total Deficit",
       color: theme.palette.secondary.main,
       data: [],
     };
     const totalUnitsLine = {
-      id: "totalUnits",
+      id: "Total Revenue",
       color: theme.palette.secondary[600],
       data: [],
     };

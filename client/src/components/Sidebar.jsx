@@ -103,16 +103,110 @@ const Sidebar = ({
   isNonMobile,
 }) => {
   // const activePage = useSelector(state => state.global.activePage)
+  const login = useSelector(state => state.global.login)
   const dispatch = useDispatch()
   const { pathname } = useLocation();
   const [active, setActive] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();
+  const [nav, setNav] = useState([])
 
   useEffect(() => {
     setActive(pathname.substring(1));
     dispatch(setActivePage(active))
   }, [pathname]);
+
+  useEffect(() => {
+    console.log("LOGIN:", login)
+    login.role === "management" ? setNav([
+      {
+        text: "Dashboard",
+        icon: <HomeOutlined />,
+      }, {
+        text: "Client Facing",
+        icon: null,
+      }, {
+        text: "Businesses",
+        icon: <Groups2Outlined />,
+      },
+      {
+        text: "Transactions",
+        icon: <ReceiptLongOutlined />,
+      },
+      {
+        text: "Geography",
+        icon: <PublicOutlined />,
+      }, {
+        text: "Revenue",
+        icon: null,
+      },
+      {
+        text: "Overview",
+        icon: <PointOfSaleOutlined />,
+      },
+      {
+        text: "Daily",
+        icon: <TodayOutlined />,
+      },
+      {
+        text: "Monthly",
+        icon: <CalendarMonthOutlined />,
+      },
+      {
+        text: "Breakdown",
+        icon: <PieChartOutlined />,
+      },
+      {
+        text: "Management",
+        icon: null,
+      },
+      {
+        text: "Admin",
+        icon: <AdminPanelSettingsOutlined />,
+      },
+      {
+        text: "Performance",
+        icon: <TrendingUpOutlined />,
+      },
+    ]) : setNav([
+      {
+        text: "Dashboard",
+        icon: <HomeOutlined />,
+      },
+      {
+        text: "Businesses",
+        icon: <Groups2Outlined />,
+      },
+      {
+        text: "Transactions",
+        icon: <ReceiptLongOutlined />,
+      },
+      {
+        text: "Geography",
+        icon: <PublicOutlined />,
+      },
+      {
+        text: "Revenue",
+        icon: null,
+      },
+      {
+        text: "Overview",
+        icon: <PointOfSaleOutlined />,
+      },
+      {
+        text: "Daily",
+        icon: <TodayOutlined />,
+      },
+      {
+        text: "Monthly",
+        icon: <CalendarMonthOutlined />,
+      },
+      {
+        text: "Performance",
+        icon: <TrendingUpOutlined />,
+      },
+    ])
+  }, [login])
 
   return (
     <Box component="nav">
@@ -149,7 +243,7 @@ const Sidebar = ({
               </FlexBetween>
             </Box>
             <List>
-              {navItems.map(({ text, icon }) => {
+              {nav.map(({ text, icon }) => {
                 if (!icon) {
                   return (
                     <Typography key={text} sx={{ m: "2.25rem 0 1rem 3rem" }}>

@@ -12,6 +12,7 @@ import validator from "validator";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsAuthenticated } from "state";
 import { useNavigate } from "react-router-dom";
+import { setLogin } from "state";
 
 const LoginForm = () => {
   const dispatch = useDispatch()
@@ -19,18 +20,19 @@ const LoginForm = () => {
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
+    role: ""
   });
 
   const [formErrors, setFormErrors] = useState({
-    name: false,
-    phoneNumber: false,
     email: false,
-    id: false,
-    kra: false,
     password: false,
-    county: false,
     role: false,
   });
+
+  const options = [
+    { value: "management", label: "County Management" },
+    { value: "revenueOfficer", label: "Revenue Officer" },
+  ];
 
   const handleChange = (e) => {
     setFormValues({
@@ -51,7 +53,8 @@ const LoginForm = () => {
 
     if (!Object.values(errors).some(Boolean)) {
       console.log("Form submitted successfully:", formValues);
-      dispatch(setIsAuthenticated())
+      // dispatch(setIsAuthenticated())
+      dispatch(setLogin(formValues))
       navigate("/dashboard")
     }
   };
@@ -59,11 +62,12 @@ const LoginForm = () => {
   return (
     <Card sx={{ maxWidth: 500, margin: "0 auto", mt: 5, p: 3 }}>
       <form onSubmit={handleSubmit}>
+        <InputLabel id="select-label">Email</InputLabel>
         <TextField
+          size="small"
           required
           fullWidth
           margin="normal"
-          label="Email"
           name="email"
           type="email"
           value={formValues.email}
@@ -71,11 +75,12 @@ const LoginForm = () => {
           error={formErrors.email}
           helperText={formErrors.email && "Please enter a valid email address"}
         />
+        <InputLabel id="select-label">Password</InputLabel>
         <TextField
+          size="small"
           required
           fullWidth
           margin="normal"
-          label="Password"
           name="password"
           type="password"
           value={formValues.password}
@@ -83,6 +88,23 @@ const LoginForm = () => {
           error={formErrors.password}
           helperText={formErrors.kra && "Please enter your password"}
         />
+
+        <InputLabel id="select-label">Select a Role</InputLabel>
+        <Select
+          size="small"
+          name="role"
+          required
+          fullWidth
+          margin="normal"
+          value={formValues.role}
+          onChange={handleChange}
+        >
+          {options.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
         <p style={{ textAlign: "center", marginTop: "1rem" }}>
           You don't have an account? <a href="/">Sign Up</a>
         </p>

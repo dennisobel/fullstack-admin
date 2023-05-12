@@ -132,7 +132,7 @@ const BreakdownChart = ({ isDashboard = false }) => {
         }}
       >
         <Typography variant="h6">
-          {!isDashboard && "Total:"} ${data.yearlySalesTotal}
+          {!isDashboard && "Total:"} Ksh {data.yearlySalesTotal}
         </Typography>
       </Box>
     </Box>

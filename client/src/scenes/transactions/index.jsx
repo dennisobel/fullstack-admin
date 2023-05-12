@@ -49,7 +49,7 @@ const Transactions = () => {
       field: "cost",
       headerName: "Revenue",
       flex: 1,
-      renderCell: (params) => `$${Number(params.value).toFixed(2)}`,
+      renderCell: (params) => `Ksh ${Number(params.value).toFixed(2)}`,
     },
   ];
 

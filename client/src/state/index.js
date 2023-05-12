@@ -14,6 +14,11 @@ const initialState = {
     password: "",
     role: "",
   },
+  login: {
+    email: "",
+    password: "",
+    role: ""
+  },
   otp: {
     otp: "",
   },
@@ -25,7 +30,9 @@ const initialState = {
     password: "",
     block: ""
   },
-  mapType: "Markers"
+  mapType: "Markers",
+  mapData: "Buildings",
+  role: "Revenue Officer"
 };
 
 export const globalSlice = createSlice({
@@ -47,6 +54,9 @@ export const globalSlice = createSlice({
     setSignup: (state, action) => {
       state.signup = action.payload;
     },
+    setLogin: (state, action) => {
+      state.login = action.payload
+    },
     setOtp: (state, action) => {
       state.otp = action.payload;
     },
@@ -55,6 +65,12 @@ export const globalSlice = createSlice({
     },
     setMapType: (state, action) => {
       state.mapType = action.payload
+    },
+    setMapData: (state, action) => {
+      state.mapData = action.payload
+    },
+    setRole: (state, action) => {
+      state.role = action.payload
     }
   },
 });
@@ -65,9 +81,12 @@ export const {
   setSearchQuery,
   setIsAuthenticated,
   setSignup,
+  setLogin,
   setOtp,
   setRevenueOfficer,
-  setMapType
+  setMapType,
+  setMapData,
+  setRole
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

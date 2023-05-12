@@ -1,27 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { Box, useTheme, Grid } from "@mui/material";
-import { useGetGeographyQuery } from "state/api";
-import Header from "components/Header";
-import { ResponsiveChoropleth } from "@nivo/geo";
-import { geoData } from "state/geoData";
+import { useTheme } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { setActivePage } from "state";
-import data from "./data"
+import buildingsdata from "./buildingsdata"
+import storedata from "./storedata"
 
 import MapView from "components/Map";
+import Map from "components/Mapp"
 
 const Geography = () => {
   const dispatch = useDispatch()
   const searchQuery = useSelector(state => state.global.searchQuery)
+  const mapData = useSelector(state => state.global.mapData)
   const theme = useTheme();
 
-  const markers = data.features;
+  // const markers = buildingsdata.features;
 
+  const [markers,setMarkers] = useState([])
   const [filteredMarkers, setFilteredMarkers] = useState([...markers])
 
   useEffect(() => {
     dispatch(setActivePage("geography"))
   }, []);
+
+  useEffect(() => {
+    console.log("MAP DATA:", mapData)
+    mapData === "Buildings" ? setMarkers(buildingsdata.features) : setMarkers(storedata.features)
+  },[mapData])
+
+  useEffect(() => {
+    console.log("markers:",markers)
+    setFilteredMarkers(markers)
+  }, [markers])
 
   useEffect(() => {
     if (searchQuery === "") {

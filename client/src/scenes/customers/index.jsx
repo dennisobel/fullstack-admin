@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, useTheme } from "@mui/material";
 import { useGetCustomersQuery } from "state/api";
 import Header from "components/Header";
 import { DataGrid } from "@mui/x-data-grid";
+import { useSelector } from "react-redux";
 
 const Customers = () => {
   const theme = useTheme();
   const { data, isLoading } = useGetCustomersQuery();
-  console.log("data", data);
+  const login = useSelector(state => state.global.login)
 
-  const columns = [
+  const [columns,setColumns] = useState([
     {
       field: "_id",
       headerName: "ID",
@@ -33,22 +34,21 @@ const Customers = () => {
         return params.value.replace(/^(\d{3})(\d{3})(\d{4})/, "($1)$2-$3");
       },
     },
-    {
-      field: "country",
-      headerName: "County",
-      flex: 0.4,
-    },
+
     {
       field: "occupation",
       headerName: "Business",
       flex: 1,
     },
-    {
-      field: "role",
-      headerName: "Role",
-      flex: 0.5,
-    },
-  ];
+  ]);
+
+  useEffect(() => {
+    login.role === "management" && setColumns([...columns,{
+      field: "country",
+      headerName: "Ward",
+      flex: 0.4,
+    }])
+  }, [])
 
   return (
     <Box m="1.5rem 2.5rem">
